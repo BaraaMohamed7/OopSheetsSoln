@@ -13,6 +13,23 @@ public class StoreDbController {
     private ArrayList<Product> products;
     private Sorter sorter;
 
+    private static StoreDbController instance = null;
+
+    public static StoreDbController getInstance() {
+        if (instance == null) {
+            synchronized (StoreDbController.class) {
+                if (instance == null) instance = new StoreDbController();
+            }
+        }
+        return instance;
+    }
+
+
+    private StoreDbController() {
+        products = new ArrayList<>();
+    }
+
+
     public void getProductsFromDb() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         Connection connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/products.db");
@@ -37,9 +54,7 @@ public class StoreDbController {
         this.sorter = sorter;
     }
 
-    public StoreDbController() {
-        products = new ArrayList<>();
-    }
+
 
     public void addProduct(Product product) throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");

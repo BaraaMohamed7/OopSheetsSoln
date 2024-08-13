@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        StoreDbController storeDbController = new StoreDbController();
+        StoreDbController storeDbController = StoreDbController.getInstance();
         storeDbController.getProductsFromDb();
         storeDbController.addProduct(new Product("New Product", 4.5, "New Category", "New Price"));
         storeDbController.removeProduct(1);
